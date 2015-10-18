@@ -36,12 +36,7 @@ App = React.createClass({
 		// Find the text field via the React ref
 		var textField = React.findDOMNode(this.refs.textInput);
 
-		Tasks.insert({
-			text: textField.value.trim(),
-			createdAt: new Date(),            // current time
-			owner: Meteor.userId(),           // _id of logged in user
-			username: Meteor.user().username  // username of logged in user
-		});
+		Meteor.call("addTask", textField.value.trim());
 
 		// Clear form
 		textField.value = "";
@@ -78,7 +73,7 @@ App = React.createClass({
 								placeholder="Type to add new tasks" />
 						</form> : ''
 					}
-					
+
 				</header>
 				<ul>
 					{this.renderTasks()}
